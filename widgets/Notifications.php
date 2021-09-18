@@ -20,6 +20,7 @@ class Notifications extends \yii\base\Widget
         'class' => 'dropdown-toggle', 
         'data-toggle' => 'dropdown'
     ];
+    public $iconOptions;
     public $spanOptions = [
         'class' => 'glyphicon glyphicon-bell'
     ];
@@ -77,6 +78,9 @@ class Notifications extends \yii\base\Widget
     {
         $html  = Html::beginTag('li', $this->options);
         $html .= Html::beginTag('a', $this->linkOptions);
+        if(count($this->iconOptions)){
+            $html .= Html::beginTag('i', $this->iconOptions);
+        }
         $html .= Html::tag('span', '', $this->spanOptions);
 
         $count = self::getCountUnseen();
