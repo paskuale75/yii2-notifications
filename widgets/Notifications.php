@@ -24,8 +24,8 @@ class Notifications extends \yii\base\Widget
     public $spanOptions = [
         'class' => 'glyphicon glyphicon-bell'
     ];
-    
-    public $menuOptions = ['class' => 'dropdown-menu']
+
+    public $menuOptions = ['class' => 'dropdown-menu'];
 
     /**
      * @var string the HTML options for the item count tag. Key 'tag' might be used here for the tag name specification.
