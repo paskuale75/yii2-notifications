@@ -79,7 +79,7 @@ class Notifications extends \yii\base\Widget
         $html  = Html::beginTag('li', $this->options);
         $html .= Html::beginTag('a', $this->linkOptions);
         if(count($this->iconOptions)){
-            $html .= Html::tag('i', $this->iconOptions);
+            $html .= Html::tag('i', false,$this->iconOptions);
         }
         $html .= Html::tag('span', '', $this->spanOptions);
 
