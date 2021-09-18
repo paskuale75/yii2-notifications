@@ -24,6 +24,8 @@ class Notifications extends \yii\base\Widget
     public $spanOptions = [
         'class' => 'glyphicon glyphicon-bell'
     ];
+    
+    public $menuOptions = ['class' => 'dropdown-menu']
 
     /**
      * @var string the HTML options for the item count tag. Key 'tag' might be used here for the tag name specification.
@@ -96,7 +98,7 @@ class Notifications extends \yii\base\Widget
         $html .= Html::tag($countTag, $count, $countOptions);
 
         $html .= Html::endTag('a');
-        $html .= Html::begintag('div', ['class' => 'dropdown-menu']);
+        $html .= Html::begintag('div', $this->menuOptions);
         $header = Html::a(Yii::t('modules/notifications', 'Mark all as read'), '#', ['class' => 'read-all pull-right']);
         $header .= Yii::t('modules/notifications', 'Notifications');
         $html .= Html::tag('div', $header, ['class' => 'header']);
