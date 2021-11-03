@@ -111,7 +111,7 @@ class Notifications extends \yii\base\Widget
         $html .= Html::endTag('a');
         $html .= Html::begintag('div', $this->menuOptions);
         $header = Html::a(Yii::t('modules/notifications', 'Mark all as read'), '#', ['class' => 'read-all pull-right']);
-        $header .= $this->subHeader['showCounter'] ? $count :Yii::t('modules/notifications', 'Notifications');
+        $header .= ' '.$this->subHeader['showCounter'] ? $count :Yii::t('modules/notifications', 'Notifications');
         $html .= Html::tag($this->subHeader['tag'], $header, $this->subHeader['options']);
 
         $html .= Html::begintag('div', ['class' => 'notifications-list']);
