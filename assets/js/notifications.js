@@ -39,7 +39,7 @@ var Notifications = (function (opts) {
             ' data-id="' + object.id + '"' +
             ' data-class="' + object.class + '"' +
             ' data-key="' + object.key + '">' +
-            '<a href="#" class="dropdown-item">'
+            '<a href="#" class="dropdown-item">' +
             '<i class="fas fa-envelope mr-2"></i> ' +
              object.message +
             '<span class="float-right text-muted text-sm timeago">' + object.timeago + '</span>' +
