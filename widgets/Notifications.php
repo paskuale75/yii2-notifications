@@ -40,6 +40,17 @@ class Notifications extends \yii\base\Widget
      */
     public $countOptions = [];
 
+
+    /**
+     * 
+     */
+    public $subHeader = [
+        'tag' => 'div',
+        'options' => [
+            'class' => 'header'
+        ]
+    ];
+
     /**
      * @var array additional options to be passed to the notification library.
      * Please refer to the plugin project page for available options.
@@ -101,7 +112,7 @@ class Notifications extends \yii\base\Widget
         $html .= Html::begintag('div', $this->menuOptions);
         $header = Html::a(Yii::t('modules/notifications', 'Mark all as read'), '#', ['class' => 'read-all pull-right']);
         $header .= Yii::t('modules/notifications', 'Notifications');
-        $html .= Html::tag('div', $header, ['class' => 'header']);
+        $html .= Html::tag($this->subHeader['tag'], $header, $this->subHeader['options']);
 
         $html .= Html::begintag('div', ['class' => 'notifications-list']);
         //$html .= Html::tag('div', '<span class="ajax-loader"></span>', ['class' => 'loading-row']);
