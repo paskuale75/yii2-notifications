@@ -26,7 +26,7 @@ class Notifications extends \yii\base\Widget
     ];
 
     public $menuOptions = ['class' => 'dropdown-menu'];
-    public $footerOptions = ['class' => 'footer']
+    public $footerOptions = ['class' => 'footer'];
 
 
     /**
