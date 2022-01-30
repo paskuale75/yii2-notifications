@@ -26,6 +26,8 @@ class Notifications extends \yii\base\Widget
     ];
 
     public $menuOptions = ['class' => 'dropdown-menu'];
+    public $footerOptions = ['class' => 'footer']
+
 
     /**
      * @var string the HTML options for the item count tag. Key 'tag' might be used here for the tag name specification.
@@ -120,7 +122,7 @@ class Notifications extends \yii\base\Widget
         $html .= Html::endTag('div');
 
         $footer = Html::a(Yii::t('modules/notifications', 'View all'), ['/notifications/default/index']);
-        $html .= Html::tag('div', $footer, ['class' => 'footer']);
+        $html .= Html::tag('div', $footer, $this->footerOptions);
         $html .= Html::endTag('div');
         $html .= Html::endTag('li');
 
