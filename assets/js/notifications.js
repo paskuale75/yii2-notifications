@@ -2,13 +2,13 @@
  * notifications plugin
  */
 
-var Notifications = (function (opts) {
-    if (!opts.id) {
+var Notifications = (function(opts) {
+    if(!opts.id){
         throw new Error('Notifications: the param id is required.');
     }
 
-    var elem = $('#' + opts.id);
-    if (!elem.length) {
+    var elem = $('#'+opts.id);
+    if(!elem.length){
         throw Error('Notifications: the element was not found.');
     }
 
@@ -26,30 +26,19 @@ var Notifications = (function (opts) {
      * @returns {jQuery|HTMLElement|*}
      */
     var renderRow = function (object) {
-        /* var html = '<div href="#" class="dropdown-item notification-item' + (object.read != '0' ? ' read' : '') + '"' +
-            ' data-id="' + object.id + '"' +
-            ' data-class="' + object.class + '"' +
-            ' data-key="' + object.key + '">' +
-            '<span class="icon"></span> ' +
-            '<span class="message">' + object.message + '</span>' +
-            '<small class="timeago">' + object.timeago + '</small>' +
-            '<span class="mark-read" data-toggle="tooltip" title="' + (object.read != '0' ? options.readLabel : options.markAsReadLabel) + '"></span>' +
-            '</div>'; */
         var html = '<div href="#" class="dropdown-item notification-item' + (object.read != '0' ? ' read' : '') + '"' +
             ' data-id="' + object.id + '"' +
             ' data-class="' + object.class + '"' +
             ' data-key="' + object.key + '">' +
-            '<a href="#" class="dropdown-item">' +
-            '<i class="fas fa-envelope mr-2"></i> ' +
-             object.message +
-            '<span class="float-right text-muted text-sm timeago">' + object.timeago + '</span>' +
-            //'<span class="mark-read" data-toggle="tooltip" title="' + (object.read != '0' ? options.readLabel : options.markAsReadLabel) + '"></span>' +
-            '</a>' +
+            '<span class="span-avatar">'+ object.avatar + '</span> '+
+            '<span class="message">' + object.message + '</span>' +
+            '<small class="timeago">' + object.timeago + '</small>' +
+            '<span class="mark-read" data-toggle="tooltip" title="' + (object.read != '0' ? options.readLabel : options.markAsReadLabel) + '"></span>' +
             '</div>';
         return $(html);
     };
 
-    var showList = function () {
+    var showList = function() {
         var list = elem.find('.notifications-list');
         $.ajax({
             url: options.url,
@@ -57,29 +46,29 @@ var Notifications = (function (opts) {
             dataType: "json",
             timeout: opts.xhrTimeout,
             //loader: list.parent(),
-            success: function (data) {
+            success: function(data) {
                 var seen = 0;
 
-                if ($.isEmptyObject(data.list)) {
+                if($.isEmptyObject(data.list)){
                     list.find('.empty-row span').show();
                 }
 
                 $.each(data.list, function (index, object) {
-                    if (list.find('>div[data-id="' + object.id + '"]').length) {
+                    if(list.find('>div[data-id="' + object.id + '"]').length){
                         return;
                     }
 
                     var item = renderRow(object);
-                    item.find('.mark-read').on('click', function (e) {
+                    item.find('.mark-read').on('click', function(e) {
                         e.stopPropagation();
-                        if (item.hasClass('read')) {
+                        if(item.hasClass('read')){
                             return;
                         }
                         var mark = $(this);
                         $.ajax({
                             url: options.readUrl,
                             type: "GET",
-                            data: { id: item.data('id') },
+                            data: {id: item.data('id')},
                             dataType: "json",
                             timeout: opts.xhrTimeout,
                             success: function (data) {
@@ -88,13 +77,13 @@ var Notifications = (function (opts) {
                         });
                     }).tooltip();
 
-                    if (object.url) {
-                        item.on('click', function (e) {
+                    if(object.url){
+                        item.on('click', function(e) {
                             document.location = object.url;
                         });
                     }
 
-                    if (object.seen == '0') {
+                    if(object.seen == '0'){
                         seen += 1;
                     }
 
@@ -108,13 +97,13 @@ var Notifications = (function (opts) {
         });
     };
 
-    elem.find('> a[data-toggle="dropdown"]').on('click', function (e) {
-        if (!$(this).parent().hasClass('show')) {
+    elem.find('> a[data-toggle="dropdown"]').on('click', function(e){
+        if(!$(this).parent().hasClass('show')){
             showList();
         }
     });
 
-    elem.find('.read-all').on('click', function (e) {
+    elem.find('.read-all').on('click', function(e){
         e.stopPropagation();
         var link = $(this);
         $.ajax({
@@ -124,26 +113,26 @@ var Notifications = (function (opts) {
             timeout: opts.xhrTimeout,
             success: function (data) {
                 markRead(elem.find('.dropdown-item:not(.read)').find('.mark-read'));
-                link.off('click').on('click', function () { return false; });
+                link.off('click').on('click', function(){ return false; });
                 updateCount();
             }
         });
     });
 
-    var markRead = function (mark) {
-        mark.off('click').on('click', function () { return false; });
+    var markRead = function(mark){
+        mark.off('click').on('click', function(){ return false; });
         mark.attr('title', options.readLabel);
         mark.tooltip('dispose').tooltip();
         mark.closest('.dropdown-item').addClass('read');
     };
 
-    var setCount = function (count, decrement) {
+    var setCount = function(count, decrement) {
         var badge = elem.find('.notifications-count');
-        if (decrement) {
+        if(decrement) {
             count = parseInt(badge.data('count')) - count;
         }
 
-        if (count > 0) {
+        if(count > 0){
             badge.data('count', count).text(count).show();
         }
         else {
@@ -151,27 +140,27 @@ var Notifications = (function (opts) {
         }
     };
 
-    var updateCount = function () {
+    var updateCount = function() {
         $.ajax({
             url: options.countUrl,
             type: "GET",
             dataType: "json",
             timeout: opts.xhrTimeout,
-            success: function (data) {
+            success: function(data) {
                 setCount(data.count);
             },
-            complete: function () {
+            complete: function() {
                 startPoll();
             }
         });
     };
 
     var _updateTimeout;
-    var startPoll = function (restart) {
-        if (restart && _updateTimeout) {
+    var startPoll = function(restart) {
+        if (restart && _updateTimeout){
             clearTimeout(_updateTimeout);
         }
-        _updateTimeout = setTimeout(function () {
+        _updateTimeout = setTimeout(function() {
             updateCount();
         }, opts.pollInterval);
     };
