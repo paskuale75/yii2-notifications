@@ -131,6 +131,11 @@ class DefaultController extends Controller
             $route = @unserialize($notif['route']);
             $notif['url'] = !empty($route) ? Url::to($route) : '';
             $notif['timeago'] = TimeElapsed::timeElapsed($notif['created_at']);
+            $user = $this->module->externalModelClass::find()
+                ->where(['user_id' => $notif["user_id"]])->one();
+            $avatarInfo = $this->module->externalServiceClass::getAvatarInfo($user);
+            $userImage = $avatarInfo["userImage"];
+            $notif["avatar"] = $userImage;
             $notifs[] = $notif;
         }
 
