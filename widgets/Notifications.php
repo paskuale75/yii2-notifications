@@ -20,14 +20,9 @@ class Notifications extends \yii\base\Widget
         'class' => 'dropdown-toggle', 
         'data-toggle' => 'dropdown'
     ];
-    public $iconOptions;
     public $spanOptions = [
-        'class' => 'glyphicon glyphicon-bell'
+        'class' => 'btn btn-primary pt-1'
     ];
-
-    public $menuOptions = ['class' => 'dropdown-menu'];
-    public $footerOptions = ['class' => 'footer'];
-
 
     /**
      * @var string the HTML options for the item count tag. Key 'tag' might be used here for the tag name specification.
@@ -41,17 +36,6 @@ class Notifications extends \yii\base\Widget
      * ```
      */
     public $countOptions = [];
-
-
-    /**
-     * 
-     */
-    public $subHeader = [
-        'tag' => 'div',
-        'options' => [
-            'class' => 'header'
-        ]
-    ];
 
     /**
      * @var array additional options to be passed to the notification library.
@@ -93,36 +77,37 @@ class Notifications extends \yii\base\Widget
     {
         $html  = Html::beginTag('li', $this->options);
         $html .= Html::beginTag('a', $this->linkOptions);
-        if(isset($this->iconOptions)){
-            $html .= Html::tag('i', false,$this->iconOptions);
-        }
-        $html .= Html::tag('span', '', $this->spanOptions);
-
+        $tagI = Html::tag('i', '', [
+            "class" => "fa fa-bell fa-2x",
+            "style" => "text-shadow: 2px 2px grey"
+        ]);
+        $html .= Html::tag('button', $tagI, $this->spanOptions);
         $count = self::getCountUnseen();
         $countOptions = array_merge([
             'tag' => 'span',
             'data-count' => $count,
         ], $this->countOptions);
-        Html::addCssClass($countOptions, 'label label-warning navbar-badge notifications-count');
-        if(!$count){
+        Html::addCssClass($countOptions, 'label label-warning navbar-badge notifications-count position-notifications');
+        /*if(!$count){
             $countOptions['style'] = 'display: none;';
-        }
+        }*/
         $countTag = ArrayHelper::remove($countOptions, 'tag', 'span');
         $html .= Html::tag($countTag, $count, $countOptions);
 
         $html .= Html::endTag('a');
-        $html .= Html::begintag('div', $this->menuOptions);
-        $header = Html::a(Yii::t('modules/notifications', 'Mark all as read'), '#', ['class' => 'read-all pull-right']);
-        $header .= '&nbsp;'.(isset($this->subHeader['showCounter'])) ? $count :Yii::t('modules/notifications', 'Notifications');
-        $html .= Html::tag($this->subHeader['tag'], $header, $this->subHeader['options']);
+        $html .= Html::begintag('div', ['class' => 'dropdown-notifications dropdown-menu dropdown-menu-right animated flipInY dropdown-menu shadow mt-3']);
+        $header = Html::a(Yii::t('modules/notifications', 'Mark all as read'), '#', ['class' => 'read-all pull-right ']);
+        //$header .= Yii::t('modules/notifications', 'Notifications');
+        $html .= Html::tag('div', $header, ['class' => 'header p-3']);
 
         $html .= Html::begintag('div', ['class' => 'notifications-list']);
         //$html .= Html::tag('div', '<span class="ajax-loader"></span>', ['class' => 'loading-row']);
-        $html .= Html::tag('div', Html::tag('span', Yii::t('modules/notifications', 'There are no notifications to show'), ['style' => 'display: none;']), ['class' => 'empty-row']);
+        $html .= Html::tag('div', Html::tag('span', Yii::t('modules/notifications', 'There are no notifications to show'), 
+            ['style' => 'display: none; margin-left:30px']), ['class' => 'empty-row']);
         $html .= Html::endTag('div');
 
         $footer = Html::a(Yii::t('modules/notifications', 'View all'), ['/notifications/default/index']);
-        $html .= Html::tag('div', $footer, $this->footerOptions);
+        $html .= Html::tag('div', $footer, ['class' => 'footer p-3']);
         $html .= Html::endTag('div');
         $html .= Html::endTag('li');
 
