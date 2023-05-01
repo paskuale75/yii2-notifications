@@ -8,6 +8,16 @@ use yii\base\InvalidParamException;
 class Module extends \yii\base\Module
 {
 
+    /**
+     * External service and model
+     * for retrieve user's avatar image
+     *
+     * @param Object externalServiceClass 
+     * @param Model $externalModelClass
+     */
+    public $externalServiceClass;
+    public $externalModelClass;
+    
     public $channels = [];
 
     public $controllerNamespace = 'webzop\notifications\controllers';
