@@ -111,3 +111,9 @@
 .notification-item.read:hover .mark-read {
     background-color: #bcbcbc;
 }
+.span-avatar {
+    padding-right:10px;
+}
+.span-avatar img {
+    width: 30px;
+}
