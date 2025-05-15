@@ -1,39 +1,39 @@
 {
-    "name": "webzop/yii2-notifications",
-    "description": "Notifications module for Yii2",
-    "type": "yii2-extension",
-    "keywords": [
-        "yii2",
-        "yii2-notifications",
-        "yii2-notifications-module",
-        "yii2-manage-notifications"
+  "name": "paskuale75/yii2-notifications",
+  "description": "PHP 8.3+ compatible fork of webzop/yii2-notifications",
+  "type": "yii2-extension",
+  "keywords": ["yii2", "notifications"],
+  "license": "BSD-3-Clause",
+  "authors": [
+    {
+      "name": "Paskuale75",
+      "email": "pellicanipasquale@gmail.com"
+    }
+  ],
+  "require": {
+    "php": "^8.3",
+    "yiisoft/yii2": "~2.0.13",
+    "minishlink/web-push": "^6.0"
+  },
+  "repositories": [
+    {
+        "type": "composer",
+        "url": "https://asset-packagist.org"
+    }
     ],
-    "authors": [
-        {
-            "name": "Gonçalo Esteves",
-            "email": "goncalo.p.esteves@gmail.com",
-            "homepage": "https://webzop.com",
-            "role": "Developer"
-        }
-    ],
-    "license": "BSD-3-Clause",
-    "require": {
-        "php": ">=7.1",
-        "yiisoft/yii2": "~2.0.13",
-        "minishlink/web-push": "^5.2"
-    },
-    "autoload": {
-        "psr-4": {
-            "webzop\\notifications\\": ""
-        }
-    },
-    "extra": {
-        "bootstrap": "webzop\\notifications\\Bootstrap"
-    },
-    "repositories": [
-        {
-            "type": "composer",
-            "url": "https://asset-packagist.org"
-        }
-    ]
+  "autoload": {
+    "psr-4": {
+      "webzop\\notifications\\": ""
+    }
+  },
+  "extra": {
+    "yii\\composer\\Plugin": {
+      "bootstrap": "webzop\\notifications\\Bootstrap"
+    }
+  },
+  "config": {
+    "allow-plugins": {
+      "yiisoft/yii2-composer": true
+    }
+  }
 }
